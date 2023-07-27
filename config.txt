@@ -20,7 +20,10 @@
 # F:myFile_*
 # ER:*
 # 
-# Every day, at 3h5 AM :# This will delete all directories starting with "myDirectory_" in the Desktop directory
+# Every day, at 3h05:# This will delete all directories starting with "myDirectory_" in the Desktop directory
 # Then it will delete all files starting with "myFile_" in the Documents directory
 # Then it will delete all empty directories in the Documents directory and in all subdirectories
 # And if you don't understand, # Signify that the whole line is a commentary
+H:12:16
+P:C:\Users\poste2\Downloads
+AR:.*

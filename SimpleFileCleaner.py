@@ -214,14 +214,21 @@ def Main():
     if os.path.isfile(path + "/config.txt"):
         with open(path + "/config.txt", "r") as configFile:
             lines = configFile.readlines()
-        if len(lines) == 0:
-            return
+        len_lines = len(lines)
+    
+        i=0
+        while i< len_lines and lines[i].startswith("#"):
+            i+=1
+        if i == len_lines:
+            print("Nothing to Do :)")
+            exit()
+        lines = lines[i:]
         hour = ""
         if lines[0].startswith('H:'):
-            lines[0].replace("H:", "")
+            lines[0] = lines[0][2:]
             line = lines[0].strip()
             try:
-                time.strptime(line, "%H:%M")
+                _ = time.strptime(line, "%H:%M")
             except:
                 print("Error in the config file : hour invalid : " + line)
                 exit()
