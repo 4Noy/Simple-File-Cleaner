@@ -10,6 +10,7 @@ Python 3 - to install : go on the website https://www.python.org/
 """
 
 import os, re, datetime, time, shutil
+from datetime import datetime, timedelta
 
 path = os.getcwd()
 ##############################################################################################################
@@ -239,9 +240,25 @@ def Main():
             UseConfigFiles(lines)
         else:
             while True:
-                if datetime.datetime.now().strftime("%H:%M") == hour:
-                    UseConfigFiles(lines)
-                time.sleep(24 * 60 * 60 - 100) # corresponding to 24 hours * 60 minuts * 60 secondes (-100 for safe)
+                try:
+                    given_time = datetime.strptime(hour, "%H:%M")
+                except ValueError:
+                    raise ValueError("Invalid input format. Please provide time in 'HH:MM' format.")
+                current_time = datetime.now()
+                target_time = current_time.replace(hour=given_time.hour, minute=given_time.minute, second=0, microsecond=0)
+
+                # If the target time is already in the past, set it to the next day
+                if target_time < current_time:
+                    target_time += timedelta(days=1)
+
+                time_difference = (target_time - current_time).total_seconds()
+                if time_difference - 100 > 0:
+                    time.sleep(time_difference - 100)
+                do = True
+                while do :
+                    if datetime.now().strftime("%H:%M") == hour:
+                        UseConfigFiles(lines)
+                        do = False
     else:
         print("No config file found, creating One...")
         with open(path + "/config.txt", "w") as configFile:
