@@ -259,6 +259,7 @@ def Main():
                     if datetime.now().strftime("%H:%M") == hour:
                         UseConfigFiles(lines)
                         do = False
+                        time.sleep(60)
     else:
         print("No config file found, creating One...")
         with open(path + "/config.txt", "w") as configFile:
