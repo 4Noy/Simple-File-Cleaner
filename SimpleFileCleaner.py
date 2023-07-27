@@ -241,7 +241,7 @@ def Main():
             while True:
                 if datetime.datetime.now().strftime("%H:%M") == hour:
                     UseConfigFiles(lines)
-                    time.sleep(24 * 60 * 60 - 100) # corresponding to 24 hours * 60 minuts * 60 secondes (-100 for safe)
+                time.sleep(24 * 60 * 60 - 100) # corresponding to 24 hours * 60 minuts * 60 secondes (-100 for safe)
     else:
         print("No config file found, creating One...")
         with open(path + "/config.txt", "w") as configFile:
